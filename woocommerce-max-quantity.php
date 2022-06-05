@@ -31,6 +31,7 @@ along with WooCommerce Max Quantity; if not, see <http://www.gnu.org/licenses/ol
 */
 
 // only if WooCommerce is active
+// make it available if it's on a network
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) || in_array( 'woocommerce/woocommerce.php', array_keys( apply_filters( 'active_plugins', get_site_option( 'active_sitewide_plugins' ) ) ) ) ) {
 
 	/**
@@ -154,10 +155,12 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 		}
 
 		if ( $variation->managing_stock() && ! $variation->backorders_allowed() ) {
+            // add $stock to make variation work
             $stock = $variation->get_stock_quantity();
 
 			// Limit our max by the available stock, if stock is lower
 
+            // use the new $stock variable instead of $max
 			// Set to lessor of stock qty or max allowed
 			$args['max_qty'] = min( $stock, $args['max_qty'] );
 
