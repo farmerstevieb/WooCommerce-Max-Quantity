@@ -31,7 +31,7 @@ along with WooCommerce Max Quantity; if not, see <http://www.gnu.org/licenses/ol
 */
 
 // only if WooCommerce is active
-if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) || || in_array( 'woocommerce/woocommerce.php', array_keys( apply_filters( 'active_plugins', get_site_option( 'active_sitewide_plugins' ) ) ) ) ) {
+if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) || in_array( 'woocommerce/woocommerce.php', array_keys( apply_filters( 'active_plugins', get_site_option( 'active_sitewide_plugins' ) ) ) ) ) {
 
 	/**
 	* Load plugin's textdomain
