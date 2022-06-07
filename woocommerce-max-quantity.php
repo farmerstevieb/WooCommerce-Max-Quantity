@@ -3,14 +3,16 @@
 Plugin Name: WooCommerce Max Quantity
 Plugin URI: https://isabelcastillo.com/free-plugins/woocommerce-max-quantity
 Description: Set a limit for the max quantity of products that can be added to cart, per product. Now with individual product limits.
-Version: 1.5.2
+Version: 1.5.3
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
+Additional Author : Stephen Bacon
+Additional Auther Email : steve@farmit.cymru
 License: GPL2
 Text Domain: woocommerce-max-quantity
 Domain Path: languages
 WC requires at least: 2.0.0
-WC tested up to: 3.9.1
+WC tested up to: 6.5.1
 
 Copyright 2013-2020 Isabel Castillo
 
@@ -224,13 +226,13 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
      * @since
      */
 
-    function isa_wc_max_qty_update_cart_qty($product_id, $max, $quantity, $cart_item_key = '' )
+    function isa_wc_max_qty_update_cart_qty($product_id, $max, $quantity, $cart_item_key = '')
     {
 
-        foreach( WC()->cart->get_cart() as $other_cart_item_keys => $values ) {
-            if ( $product_id == $values['product_id'] ) {
+        foreach (WC()->cart->get_cart() as $other_cart_item_keys => $values) {
+            if ($product_id == $values['product_id']) {
 
-                $newQty =  ($max - $quantity ) ;
+                $newQty = ($max - $quantity);
 
                 /*
                  * In case of updating the cart quantity, don't count this cart item key otherwise they won't be able to REDUCE the number of items in cart because it will think it is adding the new quantity on top of the existing quantity, when in fact it is reducing the existing quantity to the new quantity.
@@ -239,7 +241,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                 if ($cart_item_key == $other_cart_item_keys) {
                     continue;
                 }
-                WC()->cart->set_quantity( $other_cart_item_keys, $newQty );
+                WC()->cart->set_quantity($other_cart_item_keys, $newQty);
             }
 
         }
@@ -300,7 +302,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     $new_max,
                     $already_in_cart),
                     'error');
-                isa_wc_max_qty_update_cart_qty($product_id, $new_max, $quantity );
+                isa_wc_max_qty_update_cart_qty($product_id, $new_max, $quantity);
             }
         } else {
             // none were in cart previously
@@ -313,7 +315,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     '<a href="' . esc_url(wc_get_cart_url()) . '">' . __('your cart', 'woocommerce-max-quantity') . '</a>'),
                     $new_max),
                     'error');
-                isa_wc_max_qty_update_cart_qty($product_id, $new_max, $quantity );
+                isa_wc_max_qty_update_cart_qty($product_id, $new_max, $quantity);
 
                 $passed = false;
 
@@ -360,7 +362,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                 '<a href="' . esc_url(wc_get_cart_url()) . '">' . __('your cart', 'woocommerce-max-quantity') . '</a>'),
                 $new_max),
                 'error');
-            isa_wc_max_qty_update_cart_qty($product_id, $new_max, $quantity );
+            isa_wc_max_qty_update_cart_qty($product, $new_max, $quantity);
 
             $passed = false;
         }
